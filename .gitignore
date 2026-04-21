@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Environments
+.env
+.venv
+venv/
+env/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# MLflow
+mlruns/
+mlflow.db
+mlartifacts/
+
+# Data (raw files — use DVC ou documentar origem)
+data/*.csv
+data/*.parquet
+data/*.json
+
+# Models
+models/*.pkl
+models/*.pt
+models/*.pth
+models/*.joblib
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.code-workspace
+
+# Claude Code
+.claude/
