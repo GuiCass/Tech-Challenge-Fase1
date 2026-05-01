@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-e-testes:
+    name: Lint e Testes
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Instalar PyTorch (CPU-only para CI)
+        run: pip install torch --index-url https://download.pytorch.org/whl/cpu
+
+      - name: Instalar dependências do projeto
+        run: pip install -e ".[dev]"
+
+      - name: Lint com ruff
+        run: ruff check src/ tests/
+
+      - name: Verificar formatação com ruff
+        run: ruff format --check src/ tests/
+
+      - name: Rodar testes com pytest
+        run: pytest tests/ -v --tb=short --cov=src --cov-report=term-missing
