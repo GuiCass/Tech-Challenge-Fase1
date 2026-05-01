@@ -39,7 +39,9 @@ def _setup_logging() -> None:
     root.setLevel(logging.INFO)
 
     console = logging.StreamHandler()
-    console.setFormatter(logging.Formatter("%(asctime)s %(levelname)s %(name)s %(message)s"))
+    console.setFormatter(
+        logging.Formatter("%(asctime)s %(levelname)s %(name)s %(message)s")
+    )
 
     file_handler = logging.FileHandler(LOG_FILE, encoding="utf-8")
     file_handler.setFormatter(_JsonFormatter())
@@ -69,7 +71,9 @@ def _load_artifacts() -> None:
     elif os.path.exists(MODEL_PATH):
         logger.info("Carregando modelo do caminho local: %s", MODEL_PATH)
         model = ChurnMLP(input_dim=INPUT_DIM)
-        model.load_state_dict(torch.load(MODEL_PATH, map_location="cpu", weights_only=True))
+        model.load_state_dict(
+            torch.load(MODEL_PATH, map_location="cpu", weights_only=True)
+        )
         _state["model"] = model
     else:
         raise RuntimeError(
@@ -132,10 +136,14 @@ class CustomerFeatures(BaseModel):
     InternetService: Annotated[str, Field(examples=["DSL", "Fiber optic", "No"])]
     OnlineSecurity: Annotated[str, Field(examples=["Yes", "No", "No internet service"])]
     OnlineBackup: Annotated[str, Field(examples=["Yes", "No", "No internet service"])]
-    DeviceProtection: Annotated[str, Field(examples=["Yes", "No", "No internet service"])]
+    DeviceProtection: Annotated[
+        str, Field(examples=["Yes", "No", "No internet service"])
+    ]
     TechSupport: Annotated[str, Field(examples=["Yes", "No", "No internet service"])]
     StreamingTV: Annotated[str, Field(examples=["Yes", "No", "No internet service"])]
-    StreamingMovies: Annotated[str, Field(examples=["Yes", "No", "No internet service"])]
+    StreamingMovies: Annotated[
+        str, Field(examples=["Yes", "No", "No internet service"])
+    ]
     Contract: Annotated[str, Field(examples=["Month-to-month", "One year", "Two year"])]
     PaperlessBilling: Annotated[str, Field(examples=["Yes", "No"])]
     PaymentMethod: Annotated[
@@ -165,7 +173,11 @@ def health():
     return {"status": "ok", "model": "ChurnMLP", "threshold": THRESHOLD}
 
 
-@app.post("/predict", response_model=PredictionResponse, summary="Predição de churn para um cliente")
+@app.post(
+    "/predict",
+    response_model=PredictionResponse,
+    summary="Predição de churn para um cliente",
+)
 def predict(customer: CustomerFeatures):
     import pandas as pd
 

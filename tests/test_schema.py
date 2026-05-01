@@ -19,22 +19,34 @@ SCHEMA_ENTRADA = DataFrameSchema(
         "PhoneService": Column(str, pa.Check.isin(["Yes", "No"])),
         "MultipleLines": Column(str, pa.Check.isin(["Yes", "No", "No phone service"])),
         "InternetService": Column(str, pa.Check.isin(["DSL", "Fiber optic", "No"])),
-        "OnlineSecurity": Column(str, pa.Check.isin(["Yes", "No", "No internet service"])),
-        "OnlineBackup": Column(str, pa.Check.isin(["Yes", "No", "No internet service"])),
-        "DeviceProtection": Column(str, pa.Check.isin(["Yes", "No", "No internet service"])),
+        "OnlineSecurity": Column(
+            str, pa.Check.isin(["Yes", "No", "No internet service"])
+        ),
+        "OnlineBackup": Column(
+            str, pa.Check.isin(["Yes", "No", "No internet service"])
+        ),
+        "DeviceProtection": Column(
+            str, pa.Check.isin(["Yes", "No", "No internet service"])
+        ),
         "TechSupport": Column(str, pa.Check.isin(["Yes", "No", "No internet service"])),
         "StreamingTV": Column(str, pa.Check.isin(["Yes", "No", "No internet service"])),
-        "StreamingMovies": Column(str, pa.Check.isin(["Yes", "No", "No internet service"])),
-        "Contract": Column(str, pa.Check.isin(["Month-to-month", "One year", "Two year"])),
+        "StreamingMovies": Column(
+            str, pa.Check.isin(["Yes", "No", "No internet service"])
+        ),
+        "Contract": Column(
+            str, pa.Check.isin(["Month-to-month", "One year", "Two year"])
+        ),
         "PaperlessBilling": Column(str, pa.Check.isin(["Yes", "No"])),
         "PaymentMethod": Column(
             str,
-            pa.Check.isin([
-                "Electronic check",
-                "Mailed check",
-                "Bank transfer (automatic)",
-                "Credit card (automatic)",
-            ]),
+            pa.Check.isin(
+                [
+                    "Electronic check",
+                    "Mailed check",
+                    "Bank transfer (automatic)",
+                    "Credit card (automatic)",
+                ]
+            ),
         ),
     }
 )

@@ -53,7 +53,9 @@ def load_and_clean_data() -> pd.DataFrame:
     path = kagglehub.dataset_download("blastchar/telco-customer-churn")
     csv_files = glob.glob(os.path.join(path, "*.csv"))
     if not csv_files:
-        raise FileNotFoundError(f"Nenhum arquivo CSV encontrado no caminho do dataset Kaggle: {path}")
+        raise FileNotFoundError(
+            f"Nenhum arquivo CSV encontrado no caminho do dataset Kaggle: {path}"
+        )
     df = pd.read_csv(csv_files[0])
 
     df["TotalCharges"] = pd.to_numeric(df["TotalCharges"], errors="coerce")
