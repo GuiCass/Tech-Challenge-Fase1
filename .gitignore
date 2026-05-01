@@ -36,6 +36,9 @@ models/*.pt
 models/*.pth
 models/*.joblib
 
+# Logs
+logs/
+
 # OS
 .DS_Store
 Thumbs.db

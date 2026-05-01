@@ -1,4 +1,4 @@
-.PHONY: install lint test run-api mlflow
+.PHONY: install lint test run-api mlflow export-artifacts
 
 install:
 	pip install -e ".[dev,notebook]"
@@ -19,3 +19,6 @@ run-api:
 
 mlflow:
 	python -m mlflow ui --backend-store-uri sqlite:///notebooks/mlflow.db --port 5000
+
+export-artifacts:
+	python scripts/export_artifacts.py

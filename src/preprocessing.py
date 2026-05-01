@@ -1,4 +1,4 @@
-"""Preprocessing pipeline for Telco Customer Churn dataset."""
+"""Pipeline de pré-processamento para o dataset Telco Customer Churn."""
 
 import glob
 import logging
@@ -41,19 +41,19 @@ DROP_COLUMNS = ["customerID"]
 
 
 def load_and_clean_data() -> pd.DataFrame:
-    """Load and clean the Telco Customer Churn dataset from Kaggle.
+    """Carrega e limpa o dataset Telco Customer Churn do Kaggle.
 
-    Applies the same transformations established in the EDA:
-    - Convert TotalCharges from object to float
-    - Impute missing TotalCharges with median
-    - Rename Churn to target and encode as binary (0/1)
+    Aplica as mesmas transformações definidas na EDA:
+    - Converte TotalCharges de object para float
+    - Imputa valores ausentes de TotalCharges com a mediana
+    - Renomeia Churn para target e codifica como binário (0/1)
     """
     import kagglehub
 
     path = kagglehub.dataset_download("blastchar/telco-customer-churn")
     csv_files = glob.glob(os.path.join(path, "*.csv"))
     if not csv_files:
-        raise FileNotFoundError(f"No CSV file found in Kaggle dataset path: {path}")
+        raise FileNotFoundError(f"Nenhum arquivo CSV encontrado no caminho do dataset Kaggle: {path}")
     df = pd.read_csv(csv_files[0])
 
     df["TotalCharges"] = pd.to_numeric(df["TotalCharges"], errors="coerce")
@@ -74,7 +74,7 @@ def load_and_clean_data() -> pd.DataFrame:
 
 
 def prepare_features(df: pd.DataFrame) -> tuple:
-    """Extract feature matrix X and target vector y from the dataframe."""
+    """Extrai a matriz de features X e o vetor alvo y do dataframe."""
     X = df.drop(columns=DROP_COLUMNS + [TARGET_COLUMN])
     y = df[TARGET_COLUMN]
     class_dist = y.value_counts().to_dict()
@@ -90,10 +90,10 @@ def prepare_features(df: pd.DataFrame) -> tuple:
 
 
 def build_preprocessor() -> ColumnTransformer:
-    """Return a ColumnTransformer for the Telco Churn feature set.
+    """Retorna um ColumnTransformer para o conjunto de features do Telco Churn.
 
-    Applies StandardScaler to numeric features and OneHotEncoder to
-    categorical features. Safe to fit multiple times (returns a new instance).
+    Aplica StandardScaler nas features numéricas e OneHotEncoder nas
+    categóricas. Seguro para ser instanciado múltiplas vezes.
     """
     numeric_transformer = Pipeline(steps=[("scaler", StandardScaler())])
     categorical_transformer = Pipeline(
