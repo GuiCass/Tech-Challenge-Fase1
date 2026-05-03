@@ -40,7 +40,9 @@ def get_best_run(experiment_name: str) -> mlflow.entities.Run:
         output_format="list",
     )
     if not runs:
-        raise ValueError("Nenhum run MLP encontrado. Execute o notebook de treinamento primeiro.")
+        raise ValueError(
+            "Nenhum run MLP encontrado. Execute o notebook de treinamento primeiro."
+        )
 
     return runs[0]
 
@@ -54,8 +56,11 @@ def export(run_id: str | None = None) -> None:
         logger.info("Usando run especificado: %s", run_id)
     else:
         run = get_best_run(EXPERIMENT_NAME)
-        logger.info("Melhor run MLP encontrado: %s (val_roc_auc=%.4f)", run.info.run_id,
-                    run.data.metrics.get("val_roc_auc", float("nan")))
+        logger.info(
+            "Melhor run MLP encontrado: %s (val_roc_auc=%.4f)",
+            run.info.run_id,
+            run.data.metrics.get("val_roc_auc", float("nan")),
+        )
 
     run_id = run.info.run_id
 
@@ -78,7 +83,11 @@ def export(run_id: str | None = None) -> None:
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Exporta artefatos do MLflow para models/")
-    parser.add_argument("--run-id", default=None, help="ID específico do run no MLflow (opcional)")
+    parser = argparse.ArgumentParser(
+        description="Exporta artefatos do MLflow para models/"
+    )
+    parser.add_argument(
+        "--run-id", default=None, help="ID específico do run no MLflow (opcional)"
+    )
     args = parser.parse_args()
     export(run_id=args.run_id)

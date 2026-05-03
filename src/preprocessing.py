@@ -3,9 +3,12 @@
 import glob
 import logging
 import os
+from pathlib import Path
 
+import joblib
 import pandas as pd
 from sklearn.compose import ColumnTransformer
+from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
@@ -113,3 +116,40 @@ def build_preprocessor() -> ColumnTransformer:
         len(CATEGORICAL_FEATURES),
     )
     return preprocessor
+
+
+def train_and_save_preprocessor(
+    output_path: Path | str = "models/preprocessor.joblib",
+) -> tuple:
+    """Carrega dados, treina e salva o preprocessador.
+
+    Args:
+        output_path: Caminho onde salvar o preprocessador.joblib
+
+    Returns:
+        Tupla (X_train_processed, X_val_processed, y_train, y_val, preprocessor)
+    """
+    logger.info("Iniciando preparação do preprocessador...")
+
+    # Carregar e preparar dados
+    df = load_and_clean_data()
+    X, y = prepare_features(df)
+
+    # Dividir dados
+    X_train, X_val, y_train, y_val = train_test_split(
+        X, y, test_size=0.2, random_state=RANDOM_STATE, stratify=y
+    )
+    logger.info("Dados divididos: treino=%d, validação=%d", len(X_train), len(X_val))
+
+    # Construir e ajustar preprocessador
+    preprocessor = build_preprocessor()
+    X_train_processed = preprocessor.fit_transform(X_train)
+    X_val_processed = preprocessor.transform(X_val)
+
+    # Salvar preprocessador
+    output_path = Path(output_path)
+    output_path.parent.mkdir(exist_ok=True, parents=True)
+    joblib.dump(preprocessor, output_path)
+    logger.info("Preprocessador salvo em %s", output_path)
+
+    return X_train_processed, X_val_processed, y_train, y_val, preprocessor

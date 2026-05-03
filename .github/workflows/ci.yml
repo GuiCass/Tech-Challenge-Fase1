@@ -27,6 +27,9 @@ jobs:
       - name: Instalar dependências do projeto
         run: pip install -e ".[dev]"
 
+      - name: Treinar modelo e processar dados
+        run: python scripts/train_model.py
+
       - name: Lint com ruff
         run: ruff check src/ tests/
 

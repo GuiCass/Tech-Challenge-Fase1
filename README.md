@@ -26,6 +26,7 @@ Uma operadora de telecomunicações está perdendo clientes em ritmo acelerado. 
 **Dataset:** [Telco Customer Churn — IBM](https://www.kaggle.com/datasets/blastchar/telco-customer-churn)
 **Problema:** Classificação binária — `1` churn, `0` não churn
 **Modelo principal:** MLP (PyTorch) — arquitetura 45 → 128 → 64 → 32 → 1
+**Responsáveis:**  Guilherme Cassiano RM371741 - Felipe Quiroga RM372563 - Ermirio - RM371763
 
 ---
 

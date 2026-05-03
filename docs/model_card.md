@@ -10,7 +10,7 @@
 | **Arquitetura** | MLP — 45 → 128 → 64 → 32 → 1 |
 | **Framework** | PyTorch 2.x |
 | **Data de treinamento** | 2026 |
-| **Responsáveis** | Guilherme Cassiano RM371741 - Felipe Quiroga RM372563 -  |
+| **Responsáveis** | Guilherme Cassiano RM371741 - Felipe Quiroga RM372563 - Ermirio - RM371763 |
 
 ---
 
